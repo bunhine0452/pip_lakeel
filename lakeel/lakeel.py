@@ -61,3 +61,4 @@ def pip():
     # 정렬된 패키지 목록을 한 줄씩 출력
     for package in sorted_list:
         print(package)
+
