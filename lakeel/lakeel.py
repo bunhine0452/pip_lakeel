@@ -62,3 +62,66 @@ def pip():
     for package in sorted_list:
         print(package)
 
+# 새로운 함수들 추가
+def update(package=None):
+    """
+    지정된 패키지를 최신 버전으로 업데이트합니다.
+    package가 None이면 모든 패키지를 업데이트합니다.
+    """
+    try:
+        if package:
+            print(f"{package} 패키지를 업데이트하는 중...")
+            subprocess.check_call([sys.executable, "-m", "pip", "install", "--upgrade", package])
+            print(f"{package} 패키지가 성공적으로 업데이트되었습니다.")
+        else:
+            print("모든 패키지를 업데이트하는 중...")
+            subprocess.check_call([sys.executable, "-m", "pip", "list", "--outdated"])
+            subprocess.check_call([sys.executable, "-m", "pip", "install", "--upgrade", "pip"])
+            result = subprocess.run([sys.executable, "-m", "pip", "list", "--outdated", "--format=json"], 
+                                 capture_output=True, text=True)
+            packages = eval(result.stdout)
+            for package in packages:
+                subprocess.check_call([sys.executable, "-m", "pip", "install", "--upgrade", package['name']])
+            print("모든 패키지가 성공적으로 업데이트되었습니다.")
+    except subprocess.CalledProcessError as e:
+        print(f"업데이트 중 오류가 발생했습니다: {e}")
+
+def uninstall(package):
+    """
+    지정된 패키지를 제거합니다.
+    """
+    try:
+        if is_installed(package):
+            print(f"{package} 패키지를 제거하는 중...")
+            subprocess.check_call([sys.executable, "-m", "pip", "uninstall", "-y", package])
+            print(f"{package} 패키지가 성공적으로 제거되었습니다.")
+        else:
+            print(f"{package} 패키지가 설치되어 있지 않습니다.")
+    except subprocess.CalledProcessError as e:
+        print(f"제거 중 오류가 발생했습니다: {e}")
+
+def info(package):
+    """
+    지정된 패키지의 상세 정보를 조회합니다.
+    """
+    try:
+        result = subprocess.run([sys.executable, "-m", "pip", "show", package], 
+                              capture_output=True, text=True)
+        if result.stdout:
+            print(result.stdout)
+        else:
+            print(f"{package} 패키지를 찾을 수 없습니다.")
+    except subprocess.CalledProcessError as e:
+        print(f"정보 조회 중 오류가 발생했습니다: {e}")
+
+def search(query):
+    """
+    PyPI에서 패키지를 검색합니다.
+    """
+    try:
+        print(f"'{query}' 관련 패키지 검색 중...")
+        subprocess.check_call([sys.executable, "-m", "pip", "search", query])
+    except subprocess.CalledProcessError as e:
+        print(f"검색 중 오류가 발생했습니다: {e}")
+        print("참고: pip search 기능이 비활성화된 경우 https://pypi.org 에서 직접 검색해주세요.")
+
