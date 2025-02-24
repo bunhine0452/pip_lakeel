@@ -8,8 +8,10 @@
 
 다음 명령어로 pip 패키지 `lakeel`을 설치할 수 있습니다.
 
+
+## 아직 0.0.4 버전은 버그로 인해 테스트 중입니다. ^^;;
 ```bash
-pip install lakeel
+pip install lakeel==0.0.3
 ```
 
 ## 설명
