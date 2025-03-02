@@ -2,8 +2,8 @@ from setuptools import setup, find_packages
 
 setup(
     name="lakeel",
-    version="0.0.4",
-    description="파이썬 패키지 관리를 위한 편리한 도구 모음",
+    version="0.0.5",
+    description="파이썬 편의성 for who is lazy",
     long_description=open('README.md', encoding='utf-8').read(),
     long_description_content_type="text/markdown",
     author="bunhine0452",
@@ -11,7 +11,12 @@ setup(
     url="https://github.com/bunhine0452/pip_lakeel",
     packages=find_packages(),
     license='MIT',
-    install_requires=['matplotlib', 'pandas'],
+    install_requires=[
+        'matplotlib', 
+        'pandas',
+        'seaborn',
+        'numpy'
+    ],
     classifiers=[
         "Programming Language :: Python :: 3",
         "Operating System :: OS Independent",
