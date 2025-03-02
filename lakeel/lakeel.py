@@ -47,7 +47,7 @@ def dir():
     return os.getcwd()
 
 # 2. 설치된 pip 패키지 목록을 알파벳 순서대로 출력하는 함수
-def pip():
+def pips():
     # pip list 명령 실행
     result = subprocess.run([sys.executable, "-m", "pip", "list"], capture_output=True, text=True)
     
